@@ -447,11 +447,11 @@ img {
 }
 
 .prod-img {
-  @apply w-full aspect-square rounded-t-2xl bg-[#bcd6ea] flex justify-center cursor-pointer overflow-hidden;
+  @apply w-full aspect-square rounded-t-2xl bg-[#bcd6ea] flex justify-center cursor-pointer overflow-hidden object-cover h-40;
 }
 
 .prod-img img {
-  @apply w-[234px] h-auto transition duration-500;
+  @apply w-full h-auto transition duration-500;
 }
 .prod-img img:hover {
   transform: scale(1.1);
