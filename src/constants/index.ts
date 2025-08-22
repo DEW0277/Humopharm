@@ -78,9 +78,12 @@ export const items = [
   },
 ];
 
-export const products = Array(20).fill({
-  name: 'Sistam',
-  type: 'kapsula',
-  image: [sistamImage],
-  des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type  scrambled it to make a type specimen book. It has survived not only f centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release Letraset sheets containing Lorem Ipsum passages,",
-});
+export const products = Array(20)
+  .fill(null)
+  .map((_, index) => ({
+    id: index + 1,
+    name: 'Sistam',
+    type: 'kapsula',
+    image: [sistamImage],
+    des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type  scrambled it to make a type specimen book. It has survived not only f centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release Letraset sheets containing Lorem Ipsum passages,",
+  }));

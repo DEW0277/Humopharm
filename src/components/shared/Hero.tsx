@@ -50,12 +50,12 @@ function Hero() {
           </div>
         </div>
       </div>
-      <div className='hidden md:flex flex-1 relative justify-center lg:justify-end items-center w-full'>
-        <div className='bg-[#FF5A64] rounded-[160px_160px_10px_10px] w-[280px] sm:w-[320px] md:w-[360px] h-[300px] sm:h-[350px] md:h-[395px] relative z-10' />
+      <div className=' md:flex flex-1 relative justify-center lg:justify-end items-center w-full'>
+        {/* <div className='bg-[#FF5A64] rounded-[160px_160px_10px_10px] w-[280px] sm:w-[320px] md:w-[360px] h-[300px] sm:h-[350px] md:h-[395px] relative z-10' /> */}
         <img
           src={Doctor}
           alt='Doctor'
-          className='absolute bottom-0 left-1/2 -translate-x-1/2 sm:w-[400px] md:w-[550px] lg:w-[766px] h-auto z-20'
+          className='absolute bottom-[-200px] left-1/2 -translate-x-1/2 sm:w-[400px] md:w-[550px] lg:w-[766px] h-auto z-[99999999]'
         />
       </div>
     </section>
