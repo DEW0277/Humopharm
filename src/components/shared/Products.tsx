@@ -69,7 +69,7 @@ function Products() {
       const filtered = products.filter(product =>
         [product.name, product.type, product.genus, product.description]
           .filter(Boolean)
-          .some(field => field.toLowerCase().includes(query))
+          .some(field => field?.toLowerCase().includes(query))
       );
       setFilteredProducts(filtered);
     }
