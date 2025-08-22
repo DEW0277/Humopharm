@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Rasmlarni @ alias yordamida import qilish
@@ -19,20 +19,23 @@ function Products() {
   const [searchQuery, setSearchQuery] = useState("");
   const [genera] = useState<string[]>([]);
   // const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const navigate = useNavigate();
-
   const {
     products,
     loading,
     error,
     pagination,
     loadMoreProducts,
-    searchProducts,
     filterByGenus,
     // filterByCategory,
     clearFilters,
   } = useProducts();
+  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
 
   // Load genera and categories on component mount
   // useEffect(() => {
@@ -56,12 +59,19 @@ function Products() {
     navigate(`/product/${productId}`);
   };
 
-  const handleSearch = async (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      await searchProducts(searchQuery);
+
+    if (!searchQuery.trim()) {
+      setFilteredProducts(products);
     } else {
-      await clearFilters();
+      const query = searchQuery.toLowerCase();
+      const filtered = products.filter(product =>
+        [product.name, product.type, product.genus, product.description]
+          .filter(Boolean)
+          .some(field => field.toLowerCase().includes(query))
+      );
+      setFilteredProducts(filtered);
     }
   };
 
@@ -220,7 +230,7 @@ function Products() {
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products?.map(product => (
+            {filteredProducts?.map(product => (
               <div className="product-div" key={product.id}>
                 <div className="prod-img">
                   <img

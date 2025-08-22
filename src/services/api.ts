@@ -19,7 +19,8 @@ export interface ProductsResponse {
 }
 
 export interface Product {
-  images: any[];
+  description: string;
+  images: string[];
   id: number;
   name: string;
   type: string;
