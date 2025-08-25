@@ -1,16 +1,8 @@
 import customerImage from "@/images/customer.png";
 import paperPlaneImage from "@/images/paper-plane.png";
-import mapImage from "@/images/map.png";
 import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Button } from "../ui/button";
 
 import { useForm } from "react-hook-form";
@@ -19,7 +11,6 @@ import { formSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 function Contact() {
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -31,7 +22,7 @@ function Contact() {
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
-    form.reset()
+    form.reset();
   };
   return (
     <section className="section" id="contact">
@@ -49,7 +40,6 @@ function Contact() {
       </div>
 
       <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mt-8 bg-[#F9F9F9] p-6 sm:p-8 rounded-lg shadow-lg">
-
         <div className="w-full md:w-1/2 mx-auto">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
@@ -112,17 +102,19 @@ function Contact() {
 
         <div className="w-full md:w-1/2 bg-white rounded-lg overflow-hidden shadow-lg">
           <div className="h-60 sm:h-72 md:h-80 w-full">
-            <img
-              className="w-full h-full object-cover cursor-pointer"
-              src={mapImage}
-              alt="map"
-            />
+            <iframe
+              src="https://www.google.com/maps?q=40.786553,72.382894&hl=ru&z=14&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
-
       </div>
     </section>
-
   );
 }
 
