@@ -1,6 +1,7 @@
 import vrachImage from "@/images/vrach.png";
 import stethoscopeImage from "@/images/stethoscope.png";
 import group125Image from "@/images/Group 125.png";
+import certificatesBg from "@/images/certificates-bg.png";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import { Card, CardContent } from "../ui/card";
 import { certificateArr } from "@/constants";
@@ -9,18 +10,17 @@ function Certificates() {
   return (
     <section className="mt-[200px]">
       <div className="relative flex flex-col md:flex-row items-center md:items-start gap-4 bg-gradient-to-b from-[#ec5256] via-[#d93d40] to-[#a61f22] rounded-[18px] p-6 text-white overflow-hidden w-full max-w-[1320px] mx-auto min-h-[520px]">
-        {/* Декоративные изображения — скрыты на мобильных */}
         <img
           className="hidden! md:block! absolute bottom-0 left-[228px] ml-[-130px] w-[356px] h-[434px] z-10"
           src={vrachImage}
           alt="doctor"
         />
         <img className="hidden! md:block! absolute top-3 right-5 opacity-90" src={stethoscopeImage} alt="stethoscope" />
-        <img className="hidden! md:block! absolute bottom-0 left-0 opacity-90" src={group125Image} alt="stethoscope" />
+        <img className="hidden md:block! absolute bottom-0 left-0 opacity-90" src={group125Image} alt="stethoscope" />
 
         {/* Заголовок и описание */}
         <div className="relative flex flex-col items-center md:items-start text-center md:text-left z-20 w-full md:w-auto">
-          <h2 className="text-[clamp(28px,3.2vw,40px)] md:text-[58px] font-extrabold leading-tight mt-6 md:mt-10">
+          <h2 className="text-[clamp(28px,3.2vw,40px)] md:text-[58px] font-extrabold leading-tight mt-0 md:mt-0">
             Bizning Sertifikatlarimiz
           </h2>
           <p className="max-w-[440px] opacity-95 mt-4">
@@ -31,6 +31,13 @@ function Certificates() {
 
         {/* Карусель */}
         <div className="mt-8 md:mt-60 flex justify-center md:justify-start w-full relative">
+          <img
+            src={certificatesBg}
+            alt="certificates background"
+            className="hidden! md:block! absolute bottom-[-40px] left-1/2 md:left-[100px] -translate-x-1/2 md:translate-x-0
+             w-[680px] h-auto z-0 pointer-events-none select-none"
+          />
+
           <Carousel
             opts={{
               align: "start",
