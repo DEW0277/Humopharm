@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 // Rasmlarni @ alias yordamida import qilish
 import aptechkaImage from "@/images/aptechka.png";
 import settingsSlidersImage from "@/images/settings-sliders.png";
-import caretRightImage from "@/images/caret-right 3.png"; // Fayl nomida bo'shliq borligiga e'tibor bering
-import setting1Image from "@/images/setting 1.png"; // Fayl nomida bo'shliq borligiga e'tibor bering
+import caretRightImage from "@/images/caret-right 3.png";
+import setting1Image from "@/images/setting 1.png";
 import carretRedImage from "@/images/carret-red.png";
 import searchIonImage from "@/images/search-ion.png";
-import angleSmallRightImage from "@/images/angle-small-right (1) 2.png"; // Fayl nomida bo'shliq va qavslar borligiga e'tibor bering
+import angleSmallRightImage from "@/images/angle-small-right (1) 2.png";
 import { Button } from "../ui/button";
 import { ArrowDown, Loader2 } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 
 function Products() {
+  const { t } = useTranslation();
   const [isGenusOpen, setIsGenusOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-
   const [selectedGenus, setSelectedGenus] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
   const [genera] = useState<string[]>(["humo pharm", "genius pharm", "infinity pharm"]);
   const [categories] = useState<string[]>(["sirop", "tabletka", "kapsula", "svicha"]);
 
-  // const [categories, setCategories] = useState<string[]>([]);
   const { products, loading, error, pagination, loadMoreProducts, filterByGenus, filterByCategory, clearFilters } =
     useProducts();
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -33,31 +33,12 @@ function Products() {
     setFilteredProducts(products);
   }, [products]);
 
-  // Load genera and categories on component mount
-  // useEffect(() => {
-  //   const loadFilters = async () => {
-  //     try {
-  //       const [generaData] = await Promise.all([
-  //         apiService.getGenera(),
-  //         // apiService.getCategories(),
-  //       ]);
-  //       setGenera(generaData);
-  //       // setCategories(categoriesData);
-  //     } catch (err) {
-  //       console.error("Failed to load filters:", err);
-  //     }
-  //   };
-
-  //   loadFilters();
-  // }, []);
-
   const handleProductClick = (productId: number) => {
     navigate(`/product/${productId}`);
   };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!searchQuery.trim()) {
       setFilteredProducts(products);
     } else {
@@ -93,16 +74,6 @@ function Products() {
     }
   };
 
-  // const handleCategoryFilter = async (category: string) => {
-  //   setSelectedCategory(category);
-  //   if (category === selectedCategory) {
-  //     setSelectedCategory("");
-  //     await clearFilters();
-  //   } else {
-  //     await filterByCategory(category);
-  //   }
-  // };
-
   const handleClearFilters = async () => {
     setSelectedGenus("");
     setSelectedCategory("");
@@ -118,9 +89,11 @@ function Products() {
     return (
       <section className="section" id="products">
         <div className="text-center text-red-600">
-          <p>Xatolik yuz berdi: {error}</p>
+          <p>
+            {t("products.error")}: {error}
+          </p>
           <Button onClick={() => window.location.reload()} className="mt-4">
-            Qayta urinish
+            {t("products.retry")}
           </Button>
         </div>
       </section>
@@ -133,7 +106,7 @@ function Products() {
         <div className="head-name flex items-center gap-4">
           <img src={aptechkaImage} alt="" className="size-8 md:size-12" />
           <h3 className="font-semibold text-2xl md:text-3xl lg:text-4xl xl:text-6xl text-[#413838]">
-            Mahsulotlarimiz :
+            {t("products.title")}
           </h3>
         </div>
         <div className="max-md:w-full gap-4 items-center flex relative">
@@ -145,7 +118,9 @@ function Products() {
             onClick={() => setIsCategoryOpen(!isCategoryOpen)}
           >
             <img src={settingsSlidersImage} alt="" className="size-4 md:size-6" />
-            <p className="!text-[10px] sm:!text-base md:text-lg font-semibold">{selectedCategory || "Filtr(sirop)"}</p>
+            <p className="!text-[10px] sm:!text-base md:text-lg font-semibold">
+              {selectedCategory || t("products.filterCategory")}
+            </p>
             <img src={caretRightImage} alt="" className="size-4 md:size-6" />
           </button>
           <button
@@ -156,7 +131,9 @@ function Products() {
             onClick={() => setIsGenusOpen(!isGenusOpen)}
           >
             <img src={setting1Image} alt="" className="size-4 md:size-6" />
-            <p className="!text-[10px] sm:!text-base md:!text-lg font-semibold">{selectedGenus || "Genus"}</p>
+            <p className="!text-[10px] sm:!text-base md:!text-lg font-semibold">
+              {selectedGenus || t("products.filterGenus")}
+            </p>
             <img src={carretRedImage} alt="" className="size-4 md:size-6" />
           </button>
 
@@ -182,7 +159,6 @@ function Products() {
           </div>
 
           {/* Category Dropdown */}
-          {/* Category Dropdown */}
           <div
             className={`absolute top-full left-0 mt-2 w-[189px] bg-white rounded-lg shadow-lg p-3 flex flex-col gap-2 transition-all duration-300 z-50 ${
               isCategoryOpen ? "opacity-100 scale-95 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
@@ -202,13 +178,12 @@ function Products() {
             ))}
           </div>
 
-          {/* Clear Filters Button */}
           {(selectedGenus || selectedCategory || searchQuery) && (
             <button
               onClick={handleClearFilters}
               className="flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border border-gray-400 bg-gray-100 text-gray-600"
             >
-              <span className="!text-[10px] sm:!text-base md:!text-lg">Tozalash</span>
+              <span className="!text-[10px] sm:!text-base md:!text-lg">{t("products.clearFilters")}</span>
             </button>
           )}
         </div>
@@ -220,13 +195,13 @@ function Products() {
           <img src={searchIonImage} className="!size-4 md:size-6" alt="" />
           <input
             type="text"
-            placeholder="Qidituv / поиск ..."
+            placeholder={t("products.searchPlaceholder")}
             className="flex-1 bg-transparent border-none text-base focus:outline-none"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
           <Button type="submit" className="!p-2 !px-4">
-            Qidirish
+            {t("products.search")}
           </Button>
         </div>
       </form>
@@ -257,7 +232,7 @@ function Products() {
                   </div>
                   <div className="prod-btn">
                     <button onClick={() => handleProductClick(product.id)}>
-                      <p>ko'proq bilish</p>
+                      <p>{t("products.more")}</p>
                       <img style={{ transform: "rotate(-90deg)" }} src={angleSmallRightImage} alt="" />
                     </button>
                   </div>
@@ -266,7 +241,6 @@ function Products() {
             ))}
           </div>
 
-          {/* Load More Button */}
           {pagination?.page < pagination?.totalPages && (
             <div className="mt-6 w-full flex items-center justify-center">
               <Button
@@ -279,7 +253,7 @@ function Products() {
                   <Loader2 className="animate-spin size-5" />
                 ) : (
                   <>
-                    <span className="text-sm">Yana ko'rish</span>
+                    <span className="text-sm">{t("products.loadMore")}</span>
                     <ArrowDown className="size-5" />
                   </>
                 )}
@@ -287,12 +261,11 @@ function Products() {
             </div>
           )}
 
-          {/* No Products Message */}
           {products?.length === 0 && !loading && (
             <div className="text-center py-20">
-              <p className="text-gray-600 text-lg">Mahsulotlar topilmadi</p>
+              <p className="text-gray-600 text-lg">{t("products.notFound")}</p>
               <Button onClick={handleClearFilters} className="mt-4">
-                Filtrlarni tozalash
+                {t("products.clearFilters")}
               </Button>
             </div>
           )}

@@ -1,0 +1,109 @@
+{
+  "about": {
+    "title": "Humo Pharm Group",
+    "subtitle": "This is !!!",
+    "images": {
+      "factory1Alt": "Production 1",
+      "factory2Alt": "Production 2",
+      "factory3Alt": "Production 3",
+      "factory4Alt": "Production 4",
+      "factory5Alt": "Production 5",
+      "factory6Alt": "Production 6"
+    },
+    "experience": {
+      "title": "8+ years of experience",
+      "description": "For many years, we have been serving our people by providing our services.",
+      "tech": "High technologies",
+      "staff": "Qualified staff"
+    },
+    "team": {
+      "title": "70+ employees",
+      "description": "Our company employs the most experienced staff, achieving high results.",
+      "cohesion": "Cohesive team",
+      "staff": "Qualified staff"
+    },
+    "products": {
+      "title": "100+ product types",
+      "description": "Here you can find more than 100 types of products with full information.",
+      "variety": "Variety of medicines",
+      "quality": "High quality"
+    }
+  },
+  "certificates": {
+    "title": "Our Certificates",
+    "description": "Here you can view all certificates and licenses issued by official organizations. This builds your trust.",
+    "doctorAlt": "doctor",
+    "stethoscopeAlt": "stethoscope",
+    "decorAlt": "decor",
+    "bgAlt": "certificates background",
+    "certificateAlt": "certificate"
+  },
+  "contact": {
+    "iconAlt": "customer",
+    "title": "Contact Us",
+    "subtitle": "Your satisfaction is our top priority. We offer you the best services.",
+    "name": "Your name",
+    "namePlaceholder": "Enter your name",
+    "phone": "Your phone number",
+    "phonePlaceholder": "Enter your phone number",
+    "message": "Your message",
+    "messagePlaceholder": "Write details",
+    "submit": "Send",
+    "sending": "Sending...",
+    "success": "✅ Success! Your message has been sent. We will contact you shortly.",
+    "error": "❌ Error! Failed to send your message. Please try again.",
+    "planeAlt": "send button"
+  },
+  "footer": {
+    "address": {
+      "city": "Andijan city, Andijan region",
+      "street": "Sanoat street, house 7"
+    },
+    "rights": "2025 all company rights reserved"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About us",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello",
+    "title": "Welcome to the official website of Humo Pharm Group",
+    "description": "Here you can find all our products, company information, and contacts for partners. Quality is our priority.",
+    "contactButton": "Contact us",
+    "clientsCount": "500+ \ntrusted clients"
+  },
+  "product": {
+    "notFound": "Product not found",
+    "backToHome": "Return to home",
+    "back": "Back",
+    "shortInfo": "Short information:",
+    "prevImage": "Previous image",
+    "nextImage": "Next image",
+    "openSection": "Open section",
+    "sections": {
+      "composition": "Composition",
+      "usage": "Usage",
+      "additionalInfo": "Additional information",
+      "sideEffects": "Side effects",
+      "compositionDefault": "Detailed information about the product composition will be here.",
+      "usageDefault": "Brief explanation of the medicine's usage.",
+      "additionalInfoDefault": "Additional information will be provided here.",
+      "sideEffectsDefault": "Explanation about possible side effects."
+    }
+  },
+  "products": {
+    "title": "Our Products:",
+    "filterCategory": "Filter (syrup)",
+    "filterGenus": "Genus",
+    "clearFilters": "Clear filters",
+    "searchPlaceholder": "Search...",
+    "search": "Search",
+    "more": "Learn more",
+    "loadMore": "Load more",
+    "notFound": "No products found",
+    "error": "An error occurred",
+    "retry": "Retry"
+  }
+}

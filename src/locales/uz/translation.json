@@ -1,0 +1,110 @@
+{
+  "about": {
+    "title": "Humo Pharm Group",
+    "subtitle": "Bu !!!",
+    "images": {
+      "factory1Alt": "Ishlab chiqarish 1",
+      "factory2Alt": "Ishlab chiqarish 2",
+      "factory3Alt": "Ishlab chiqarish 3",
+      "factory4Alt": "Ishlab chiqarish 4",
+      "factory5Alt": "Ishlab chiqarish 5",
+      "factory6Alt": "Ishlab chiqarish 6"
+    },
+    "experience": {
+      "title": "8+ yil Tajriba",
+      "description": "Uzoq yillardan beri halqimizning hizmatida bo’lib, o’z servislarimizni taklif qilmoqdamiz.",
+      "tech": "Yuqori texnologiyalar",
+      "staff": "Malakali xodimlar"
+    },
+    "team": {
+      "title": "70+ xodimlar",
+      "description": "Bizning kompaniyada eng tajribali xodimlar o’z ish faoliyatlarini olib borishadi va yuqori natijalar ko’rsatadi",
+      "cohesion": "Inoq jamoa",
+      "staff": "Malakali xodimlar"
+    },
+    "products": {
+      "title": "100+ mahsulot turlari",
+      "description": "Siz bu yerda 100+ dan ortiq mahsulotlarni topishingiz mumkun. Va u mahsulot to’g’risida barcha ma’lumotlar mavjud.",
+      "variety": "Turfa xil dorilar",
+      "quality": "Yuqori sifat"
+    }
+  },
+  "certificates": {
+    "title": "Bizning Sertifikatlarimiz",
+    "description": "Siz bu yerda barcha maxsus tashkilotlardan berilgan sertifikat va tegishli litsenziyalarni ko‘rishingiz mumkin. Bu yo‘l ishonchingizni oshadi.",
+    "doctorAlt": "shifokor",
+    "stethoscopeAlt": "stetoskop",
+    "decorAlt": "dekor",
+    "bgAlt": "sertifikatlar fon",
+    "certificateAlt": "sertifikat"
+  },
+  "contact": {
+    "iconAlt": "mijoz",
+    "title": "Biz bilan bog'laning",
+    "subtitle": "Chunki sizning mamnunligingiz biz uchun birinchi o'rinda. Biz ham sizga eng yaxshi xizmatlarni taklif qilamiz",
+    "name": "Ismingiz",
+    "namePlaceholder": "Ismingizni kiriting",
+    "phone": "Telefon raqamingiz",
+    "phonePlaceholder": "Telefon raqamingizni kiriting",
+    "message": "Maqsadingiz",
+    "messagePlaceholder": "Batafsil yozing",
+    "submit": "Yuborish",
+    "sending": "Yuborilmoqda...",
+    "success": "✅ Muvaffaqiyat! Xabaringiz yuborildi. Tez orada siz bilan bog'lanamiz.",
+    "error": "❌ Xatolik! Xabaringizni yuborishda muammo yuz berdi. Qaytadan urinib ko'ring.",
+    "planeAlt": "yuborish tugmasi"
+  },
+  "footer": {
+    "address": {
+      "city": "Andijon shahri, Andijon viloyati",
+      "street": "Sanoat ko'chasi 7-uy"
+    },
+    "rights": "2025 yil barcha kompaniya huquqlari himoyalangan"
+  },
+  "navigation": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "services": "Xizmatlar",
+    "contact": "Bog'lanish"
+  },
+
+  "hero": {
+    "greeting": "Assalomu alaykum",
+    "title": "Humo Pharm Group rasmiy sahifasiga hush kelibsiz",
+    "description": "Siz bu yerda bizning barcha mahsulotlarimiz, kompaniya haqida ma’lumotlar va hamkorlar uchun aloqalarni topasiz. Sifat — bizning ustuvor yo’nalishimiz.",
+    "contactButton": "Bog‘lanish",
+    "clientsCount": "500+ \nishonchli mijozlar"
+  },
+  "product": {
+    "notFound": "Mahsulot topilmadi",
+    "backToHome": "Bosh sahifaga qaytish",
+    "back": "Orqaga",
+    "shortInfo": "Qisqacha ma’lumot :",
+    "prevImage": "Oldingi rasm",
+    "nextImage": "Keyingi rasm",
+    "openSection": "Bo‘limni ochish",
+    "sections": {
+      "composition": "Tarkibi",
+      "usage": "Qo‘llanilishi",
+      "additionalInfo": "Qo‘shimcha ma’lumot",
+      "sideEffects": "Nojo‘ ta’siri",
+      "compositionDefault": "Bu yerda mahsulot tarkibi haqida batafsil ma’lumot bo‘ladi.",
+      "usageDefault": "Dori vositasi qo‘llanilishi haqida qisqacha izoh.",
+      "additionalInfoDefault": "Bu bo‘limda qo‘shimcha ma’lumot beriladi.",
+      "sideEffectsDefault": "Mumkin bo‘lgan nojo‘ya ta’sirlari haqida izoh."
+    }
+  },
+  "products": {
+    "title": "Mahsulotlarimiz :",
+    "filterCategory": "Filtr (sirop)",
+    "filterGenus": "Genus",
+    "clearFilters": "Filtrlarni tozalash",
+    "searchPlaceholder": "Qidituv / поиск ...",
+    "search": "Qidirish",
+    "more": "Ko'proq bilish",
+    "loadMore": "Yana ko'rish",
+    "notFound": "Mahsulotlar topilmadi",
+    "error": "Xatolik yuz berdi",
+    "retry": "Qayta urinish"
+  }
+}
