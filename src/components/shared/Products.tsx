@@ -15,20 +15,16 @@ import { useProducts } from "@/hooks/useProducts";
 
 function Products() {
   const [isGenusOpen, setIsGenusOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
   const [selectedGenus, setSelectedGenus] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [genera] = useState<string[]>([]);
+  const [genera] = useState<string[]>(["humo pharm", "genius pharm", "infinity pharm"]);
+  const [categories] = useState<string[]>(["sirop", "tabletka", "kapsula", "svicha"]);
+
   // const [categories, setCategories] = useState<string[]>([]);
-  const {
-    products,
-    loading,
-    error,
-    pagination,
-    loadMoreProducts,
-    filterByGenus,
-    // filterByCategory,
-    clearFilters,
-  } = useProducts();
+  const { products, loading, error, pagination, loadMoreProducts, filterByGenus, filterByCategory, clearFilters } =
+    useProducts();
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();
@@ -86,6 +82,17 @@ function Products() {
     }
   };
 
+  const handleCategoryFilter = async (category: string) => {
+    setSelectedCategory(category);
+    setIsCategoryOpen(false);
+    if (category === selectedCategory) {
+      setSelectedCategory("");
+      await clearFilters();
+    } else {
+      await filterByCategory(category);
+    }
+  };
+
   // const handleCategoryFilter = async (category: string) => {
   //   setSelectedCategory(category);
   //   if (category === selectedCategory) {
@@ -135,10 +142,10 @@ function Products() {
             className={`flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border ${
               selectedCategory ? "bg-[#e52629] text-white border-[#e52629]" : "border-[#e52629] bg-white text-[#e52629]"
             }`}
-            onClick={() => setSelectedCategory("")}
+            onClick={() => setIsCategoryOpen(!isCategoryOpen)}
           >
             <img src={settingsSlidersImage} alt="" className="size-4 md:size-6" />
-            <p className="!text-[10px] sm:!text-base md:text-lg font-semibold">{selectedCategory || "Kategoriya"}</p>
+            <p className="!text-[10px] sm:!text-base md:text-lg font-semibold">{selectedCategory || "Filtr(sirop)"}</p>
             <img src={caretRightImage} alt="" className="size-4 md:size-6" />
           </button>
           <button
@@ -175,23 +182,25 @@ function Products() {
           </div>
 
           {/* Category Dropdown */}
-          {/* <div className='absolute top-full left-0 mt-2 w-[189px] bg-white rounded-lg shadow-lg p-3 flex flex-col gap-2 z-50'>
-            {categories.map((category) => (
-              <label
-                key={category}
-                className='flex items-center gap-2 cursor-pointer'
-              >
+          {/* Category Dropdown */}
+          <div
+            className={`absolute top-full left-0 mt-2 w-[189px] bg-white rounded-lg shadow-lg p-3 flex flex-col gap-2 transition-all duration-300 z-50 ${
+              isCategoryOpen ? "opacity-100 scale-95 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
+            }`}
+          >
+            {categories.map(category => (
+              <label key={category} className="flex items-center gap-2 cursor-pointer">
                 <input
-                  type='radio'
-                  name='categoryOption'
-                  className='form-radio w-5 h-5'
+                  type="radio"
+                  name="categoryOption"
+                  className="form-radio w-5 h-5"
                   checked={selectedCategory === category}
                   onChange={() => handleCategoryFilter(category)}
                 />
                 <span>{category}</span>
               </label>
             ))}
-          </div> */}
+          </div>
 
           {/* Clear Filters Button */}
           {(selectedGenus || selectedCategory || searchQuery) && (

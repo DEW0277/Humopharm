@@ -1,16 +1,16 @@
-import Modal from "@/components/ui/Modal";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useProductDetails } from "@/hooks/useProducts";
 import { Loader2, ArrowLeft } from "lucide-react";
+import Modal from "../ui/Modal";
 
 const ProductPage = () => {
   const [current, setCurrent] = useState(0);
-  const [open, setOpen] = useState<number | null>(null);
+
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const productId = id ? parseInt(id) : 0;
-
+  const [open, setOpen] = useState<number | null>(null);
   const { product, loading, error } = useProductDetails(productId);
 
   const handleBackClick = () => {
@@ -26,7 +26,6 @@ const ProductPage = () => {
       </div>
     );
   }
-  console.log(product);
 
   if (error || !product) {
     return (
@@ -45,9 +44,28 @@ const ProductPage = () => {
     );
   }
 
+  const sections = [
+    {
+      title: "Tarkibi",
+      content: product.description || "Bu yerda mahsulot tarkibi haqida batafsil ma’lumot bo‘ladi.",
+    },
+    {
+      title: "Qo‘llanilishi",
+      content: product.dosage || "Dori vositasi qo‘llanilishi haqida qisqacha izoh.",
+    },
+    {
+      title: "Qo‘shimcha ma’lumot",
+      content: product.description || "Bu bo‘limda qo‘shimcha ma’lumot beriladi.",
+    },
+    {
+      title: "Nojo‘ ta’siri",
+      content: product.prescription || "Mumkin bo‘lgan nojo‘ya ta’sirlari haqida izoh.",
+    },
+  ];
+
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+    <div className="max-w-[1320px] mx-auto">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div className="w-full md:w-[500px]">
           <div className="flex items-center mb-4 gap-4">
             <button
@@ -65,43 +83,6 @@ const ProductPage = () => {
 
           <h2 className="text-black text-xl font-bold mt-4">Qisqacha ma'lumot :</h2>
           <p className="text-gray-600 text-base mt-2 leading-relaxed">{product.description}</p>
-
-          {/* Additional Product Info */}
-          <div className="mt-6 space-y-3">
-            {product.price && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-700">Narxi:</span>
-                <span className="text-lg font-bold text-[#e52629]">{product.price.toLocaleString()} so'm</span>
-              </div>
-            )}
-
-            {product.dosage && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-700">Dozasi:</span>
-                <span className="text-gray-600">{product.dosage}</span>
-              </div>
-            )}
-
-            {product.manufacturer && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-700">Ishlab chiqaruvchi:</span>
-                <span className="text-gray-600">{product.manufacturer}</span>
-              </div>
-            )}
-
-            {product.prescription !== undefined && (
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-gray-700">Retsept:</span>
-                <span
-                  className={`px-2 py-1 rounded text-sm ${
-                    product.prescription ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"
-                  }`}
-                >
-                  {product.prescription ? "Kerak" : "Kerak emas"}
-                </span>
-              </div>
-            )}
-          </div>
         </div>
 
         <div className="relative bg-gray-100 w-full md:w-[512px] rounded-lg p-6">
@@ -111,70 +92,80 @@ const ProductPage = () => {
               alt={product.name}
               className="w-full rounded-lg"
             />
-            {product.images.length > 1 && (
-              <>
-                <button
-                  onClick={() => setCurrent(prev => (prev === 0 ? product.images.length - 1 : prev - 1))}
-                  className="absolute top-1/2 left-3 -translate-y-1/2 p-2 bg-white/80 hover:bg-white rounded-full shadow-md transition-colors"
-                >
-                  <ArrowLeft className="size-5 text-gray-700" />
-                </button>
-
-                <button
-                  onClick={() => setCurrent(prev => (prev === product.images.length - 1 ? 0 : prev + 1))}
-                  className="absolute top-1/2 right-3 -translate-y-1/2 p-2 bg-white/80 hover:bg-white rounded-full shadow-md transition-colors"
-                >
-                  <ArrowLeft className="size-5 text-gray-700 rotate-180" />
-                </button>
-              </>
-            )}
           </div>
+        </div>
+      </div> */}
 
-          {product.images.length > 1 && (
+      <div className="grid grid-cols-1! md:grid-cols-2! gap-8 ">
+        <div className="flex flex-col">
+          <div className="flex items-center mb-4 gap-30 ">
+            <img src="/orqaga-icon.svg" alt="" onClick={() => navigate("/")} />
+            <div className="ml-4 flex flex-col items-center">
+              <h1 className="text-5xl font-bold mb-2 text-center">{product.name}</h1>
+              <span className="text-xl px-3 py-1 bg-blue-600 text-white rounded-full">{product.type}</span>
+            </div>
+          </div>
+          <h2 className="text-black text-xl font-bold mt-4">Qisqacha ma’lumot :</h2>
+          <p className="text-gray-600 text-l mt-2 leading-relaxed">{product.description}</p>
+        </div>
+
+        <div className="flex flex-col">
+          <div className="relative bg-gray-100 md:w-[515px] rounded-lg p-6 ">
+            <div className="relative bg-white rounded-lg shadow-md p-2">
+              <img
+                src={`${import.meta.env.VITE_API_URL || "http://localhost:3000"}${product.images[current]}`}
+                alt={product.name}
+                className="w-full rounded-lg"
+              />
+              <button
+                onClick={() => setCurrent(prev => (prev === 0 ? product.images.length - 1 : prev - 1))}
+                className="absolute top-1/2 left-3 -translate-y-1/2 p-2 "
+              >
+                <img src="/left.svg" alt="" />
+              </button>
+
+              <button
+                onClick={() => setCurrent(prev => (prev === product.images.length - 1 ? 0 : prev + 1))}
+                className="absolute top-1/2 right-3 -translate-y-1/2 p-2 "
+              >
+                <img src="/right.svg" alt="" />
+              </button>
+            </div>
+
             <div className="flex justify-center mt-4 gap-3">
               {product.images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrent(idx)}
-                  className={`w-14 h-14 border rounded-md overflow-hidden bg-white shadow-sm transition-all ${
-                    current === idx ? "border-red-500 scale-110" : "border-gray-300 hover:border-gray-400"
+                  className={`w-14 h-14 border rounded-md overflow-hidden bg-white shadow-sm ${
+                    current === idx ? "border-red-500" : "border-gray-300"
                   }`}
                 >
                   <img
                     src={`${import.meta.env.VITE_API_URL || "http://localhost:3000"}${img}`}
-                    alt=""
+                    alt={product.name}
                     className="w-full h-full object-cover"
                   />
                 </button>
               ))}
             </div>
-          )}
+          </div>
         </div>
       </div>
 
-      {/* Product Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-        {product.sections?.map((section, index) => (
+      <div className="grid grid-cols-2! md:grid-cols-2 gap-4 my-8">
+        {sections.map((section, index) => (
           <div key={index} className="bg-gray-100 rounded-xl shadow-sm">
             <button
               onClick={() => setOpen(index)}
               className="flex w-full items-center justify-between px-4 py-3 hover:bg-gray-200 transition rounded-xl"
             >
               <span className="font-medium">{section.title}</span>
-              <svg
-                className={`w-5 h-5 transition-transform ${open === index ? "rotate-180" : ""}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              <img src="/kirish.svg" alt="" />
             </button>
 
             <Modal open={open === index} onClose={() => setOpen(null)} title={section.title}>
-              <div className="prose max-w-none">
-                <p className="text-gray-700 leading-relaxed">{section.content}</p>
-              </div>
+              {section.content}
             </Modal>
           </div>
         ))}

@@ -1,11 +1,11 @@
 // src/App.tsx
-import { useState } from "react"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 export default function App() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-white p-6 flex justify-center">
@@ -25,14 +25,14 @@ export default function App() {
           <Accordion type="single" collapsible className="mt-6">
             <AccordionItem value="tarkibi">
               <AccordionTrigger>Tarkibi</AccordionTrigger>
-              <AccordionContent>
-                Mahsulot tarkibi haqida ma’lumot...
-              </AccordionContent>
+              <AccordionContent>Mahsulot tarkibi haqida ma’lumot...</AccordionContent>
             </AccordionItem>
             <AccordionItem value="qollanilishi">
               <AccordionTrigger>Qo‘llanilish ma’lumotlari</AccordionTrigger>
               <AccordionContent>
-                <Button variant="outline" size="sm" onClick={() => setOpen(true)}>Ko‘rish</Button>
+                <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
+                  Ko‘rish
+                </Button>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -42,7 +42,7 @@ export default function App() {
         <div className="flex flex-col items-center">
           <img src="/sistam.png" alt="Sistam" className="w-64 rounded-md shadow-md" />
           <div className="flex space-x-2 mt-3">
-            {[1, 2, 3, 4].map((i) => (
+            {[1, 2, 3, 4].map(i => (
               <div key={i} className="w-10 h-10 bg-gray-200 rounded-md" />
             ))}
           </div>
@@ -55,11 +55,9 @@ export default function App() {
           <DialogHeader>
             <DialogTitle>Qo‘llanilishi</DialogTitle>
           </DialogHeader>
-          <p className="text-sm text-gray-600">
-            Bu mahsulotdan foydalanish bo‘yicha ma’lumot...
-          </p>
+          <p className="text-sm text-gray-600">Bu mahsulotdan foydalanish bo‘yicha ma’lumot...</p>
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
