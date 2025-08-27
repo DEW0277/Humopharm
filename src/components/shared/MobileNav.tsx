@@ -6,6 +6,7 @@ import { RiApps2Fill, RiCloseFill } from "react-icons/ri";
 import { navigationLinks } from "@/constants";
 import Email from "@/images/clip-mail 1.png";
 import Phone from "@/images/phone-call (7) 1.png";
+import { t } from "i18next";
 
 function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ function MobileNav() {
                     className="cursor-pointer font-semibold opacity-95 hover:opacity-100 hover:underline"
                     onClick={toggleMenu}
                   >
-                    {i.title}
+                    {t(i.title)}
                   </a>
                 </li>
               ))}

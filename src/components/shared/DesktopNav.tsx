@@ -1,5 +1,6 @@
 import { navigationLinks } from "@/constants";
 import LanguagesBtn from "./LanguageBtn";
+import { t } from "i18next";
 
 function DesktopNav() {
   return (
@@ -11,7 +12,7 @@ function DesktopNav() {
               href={`#${i.link}`}
               className="cursor-pointer font-semibold opacity-95 hover:opacity-100 hover:underline"
             >
-              {i.title}
+              {t(i.title)}
             </a>
           </li>
         ))}

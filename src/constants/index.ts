@@ -9,27 +9,23 @@ import itemImg1 from "../images/calendar-clock.png";
 import itemImg2 from "../images/user-alt.png";
 import itemImg3 from "../images/pills.png";
 
-export const useNavigationLinks = () => {
-  const { t } = useTranslation();
-
-  return [
-    {
-      id: uuidv4(),
-      title: t("nav.about"),
-      link: "about",
-    },
-    {
-      id: uuidv4(),
-      title: t("nav.products"),
-      link: "products",
-    },
-    {
-      id: uuidv4(),
-      title: t("nav.contact"),
-      link: "contact",
-    },
-  ];
-};
+export const navigationLinks = [
+  {
+    id: uuidv4(),
+    title: "nav.about",
+    link: "about",
+  },
+  {
+    id: uuidv4(),
+    title: "nav.products",
+    link: "products",
+  },
+  {
+    id: uuidv4(),
+    title: "nav.contact",
+    link: "contact",
+  },
+];
 
 export const langArr = [
   {
@@ -65,32 +61,26 @@ export const certificateArr = [
   },
 ];
 
-import { useTranslation } from "react-i18next";
-
-export const useItems = () => {
-  const { t } = useTranslation();
-
-  return [
-    {
-      id: uuidv4(),
-      title: t("stats.experience.title"),
-      desc: t("stats.experience.desc"),
-      img: itemImg1,
-    },
-    {
-      id: uuidv4(),
-      title: t("stats.employees.title"),
-      desc: t("stats.employees.desc"),
-      img: itemImg2,
-    },
-    {
-      id: uuidv4(),
-      title: t("stats.products.title"),
-      desc: t("stats.products.desc"),
-      img: itemImg3,
-    },
-  ];
-};
+export const items = [
+  {
+    id: "experience",
+    title: "stats.experience.title",
+    desc: "stats.experience.desc",
+    img: itemImg1,
+  },
+  {
+    id: "employees",
+    title: "stats.employees.title",
+    desc: "stats.employees.desc",
+    img: itemImg2,
+  },
+  {
+    id: "products",
+    title: "stats.products.title",
+    desc: "stats.products.desc",
+    img: itemImg3,
+  },
+];
 
 export const products = Array(20)
   .fill(null)
