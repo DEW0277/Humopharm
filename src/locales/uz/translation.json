@@ -106,5 +106,19 @@
     "notFound": "Mahsulotlar topilmadi",
     "error": "Xatolik yuz berdi",
     "retry": "Qayta urinish"
+  },
+  "stats": {
+    "experience": {
+      "title": "20+ Yillik Tajriba",
+      "desc": "Uzoq yillardan beri xalqimizning xizmatida bo’lib, o’z xizmatlarimizni taklif qilyapmiz"
+    },
+    "employees": {
+      "title": "170+ Xodimlar",
+      "desc": "Bizning kompaniyada eng tajribali xodimlar o’z ish faoliyatlarini olib borishadi va yuqori natijalar ko’rsatadi"
+    },
+    "products": {
+      "title": "160+ Mahsulot turlari",
+      "desc": "Siz bu yerda 100+ dan ortiq mahsulotlarni topishingiz mumkin. Va u mahsulot to’g’risida barcha ma’lumotlar mavjud."
+    }
   }
 }

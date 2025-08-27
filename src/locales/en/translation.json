@@ -105,5 +105,19 @@
     "notFound": "No products found",
     "error": "An error occurred",
     "retry": "Retry"
+  },
+  "stats": {
+    "experience": {
+      "title": "20+ Years of Experience",
+      "desc": "We have been serving our people for many years, offering our services with pride."
+    },
+    "employees": {
+      "title": "170+ Employees",
+      "desc": "Our company employs the most experienced staff who deliver excellent results."
+    },
+    "products": {
+      "title": "160+ Product Types",
+      "desc": "You can find over 100 products here, with complete information about each one."
+    }
   }
 }

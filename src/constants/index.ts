@@ -61,26 +61,32 @@ export const certificateArr = [
   },
 ];
 
-export const items = [
-  {
-    id: uuidv4(),
-    title: "20+ Yillik Tajriba",
-    desc: "Uzoqq yillardan beri halqimizning hiz-matida bo’lib, o’z hizmatlarimizni taklif qilyapmiz",
-    img: itemImg1,
-  },
-  {
-    id: uuidv4(),
-    title: "170+ Xodimlar",
-    desc: "Bizning kompaniyada eng tajribali xodimlar o’z ish faoliyatlarini olib borishadi  va yuqori natijalar ko’rsatadi",
-    img: itemImg2,
-  },
-  {
-    id: uuidv4(),
-    title: "160+ Mahsulot turlari",
-    desc: "Siz bu yerda 100+ dan ortiq mahsulotlarni topishingiz mumkun. Va u mahsulot to’g’risida barcha ma’lumotlar mavjud.",
-    img: itemImg3,
-  },
-];
+import { useTranslation } from "react-i18next";
+
+export const useItems = () => {
+  const { t } = useTranslation();
+
+  return [
+    {
+      id: uuidv4(),
+      title: t("stats.experience.title"),
+      desc: t("stats.experience.desc"),
+      img: itemImg1,
+    },
+    {
+      id: uuidv4(),
+      title: t("stats.employees.title"),
+      desc: t("stats.employees.desc"),
+      img: itemImg2,
+    },
+    {
+      id: uuidv4(),
+      title: t("stats.products.title"),
+      desc: t("stats.products.desc"),
+      img: itemImg3,
+    },
+  ];
+};
 
 export const products = Array(20)
   .fill(null)
