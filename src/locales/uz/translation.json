@@ -120,5 +120,10 @@
       "title": "160+ Mahsulot turlari",
       "desc": "Siz bu yerda 100+ dan ortiq mahsulotlarni topishingiz mumkin. Va u mahsulot to’g’risida barcha ma’lumotlar mavjud."
     }
+  },
+  "nav": {
+    "about": "Biz haqimizda",
+    "products": "Mahsulotlar",
+    "contact": "Bog‘lanish"
   }
 }

@@ -119,5 +119,11 @@
       "title": "160+ Product Types",
       "desc": "You can find over 100 products here, with complete information about each one."
     }
+  },
+
+  "nav": {
+    "about": "About Us",
+    "products": "Products",
+    "contact": "Contact"
   }
 }

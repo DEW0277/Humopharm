@@ -9,23 +9,27 @@ import itemImg1 from "../images/calendar-clock.png";
 import itemImg2 from "../images/user-alt.png";
 import itemImg3 from "../images/pills.png";
 
-export const navigationLinks = [
-  {
-    id: uuidv4(),
-    title: "Biz haqimizda",
-    link: "about",
-  },
-  {
-    id: uuidv4(),
-    title: "Mahsulotlar",
-    link: "products",
-  },
-  {
-    id: uuidv4(),
-    title: "Bog‘lanish",
-    link: "contact",
-  },
-];
+export const useNavigationLinks = () => {
+  const { t } = useTranslation();
+
+  return [
+    {
+      id: uuidv4(),
+      title: t("nav.about"),
+      link: "about",
+    },
+    {
+      id: uuidv4(),
+      title: t("nav.products"),
+      link: "products",
+    },
+    {
+      id: uuidv4(),
+      title: t("nav.contact"),
+      link: "contact",
+    },
+  ];
+};
 
 export const langArr = [
   {
