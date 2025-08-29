@@ -124,6 +124,8 @@
   "nav": {
     "about": "About Us",
     "products": "Products",
+    "prod": "Products",
     "contact": "Contact"
-  }
+  },
+  "produc": "Products"
 }

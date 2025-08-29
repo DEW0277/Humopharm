@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -28,7 +28,21 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();
+  const dropdownRef = useRef<HTMLDivElement>(null); // <== добавляем ref
 
+  // Закрытие при клике вне
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsGenusOpen(false);
+        setIsCategoryOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   useEffect(() => {
     setFilteredProducts(products);
   }, [products]);
@@ -85,6 +99,16 @@ function Products() {
     await loadMoreProducts();
   };
 
+  const handleGenusToggle = () => {
+    setIsGenusOpen(!isGenusOpen);
+    if (!isGenusOpen) setIsCategoryOpen(false);
+  };
+
+  const handleCategoryToggle = () => {
+    setIsCategoryOpen(!isCategoryOpen);
+    if (!isCategoryOpen) setIsGenusOpen(false);
+  };
+
   if (error) {
     return (
       <section className="section" id="products">
@@ -115,7 +139,7 @@ function Products() {
             className={`flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border ${
               selectedCategory ? "bg-[#e52629] text-white border-[#e52629]" : "border-[#e52629] bg-white text-[#e52629]"
             }`}
-            onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+            onClick={handleCategoryToggle}
           >
             <img src={settingsSlidersImage} alt="" className="size-4 md:size-6" />
             <p className="!text-[10px] sm:!text-base md:text-lg font-semibold">
@@ -123,39 +147,37 @@ function Products() {
             </p>
             <img src={caretRightImage} alt="" className="size-4 md:size-6" />
           </button>
-          <button
-            id="genusBtn"
-            className={`flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border ${
-              selectedGenus ? "bg-[#e52629] text-white border-[#e52629]" : "border-[#e52629] bg-white text-[#e52629]"
-            }`}
-            onClick={() => setIsGenusOpen(!isGenusOpen)}
-          >
-            <img src={setting1Image} alt="" className="size-4 md:size-6" />
-            <p className="!text-[10px] sm:!text-base md:!text-lg font-semibold">
-              {selectedGenus || t("products.filterGenus")}
-            </p>
-            <img src={carretRedImage} alt="" className="size-4 md:size-6" />
-          </button>
+          <div className="relative">
+            <button
+              id="genusBtn"
+              className={`flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border ${
+                selectedGenus ? "bg-[#e52629] text-white border-[#e52629]" : "border-[#e52629] bg-white text-[#e52629]"
+              }`}
+              onClick={handleGenusToggle}
+            >
+              <img src={setting1Image} alt="" className="size-4 md:size-6" />
+              <p className="!text-[10px] sm:!text-base md:!text-lg font-semibold">
+                {selectedGenus || t("products.filterGenus")}
+              </p>
+              <img src={carretRedImage} alt="" className="size-4 md:size-6" />
+            </button>
 
-          {/* Genus Dropdown */}
-          <div
-            id="genusDropdown"
-            className={`absolute top-full left-0 mt-2 w-[189px] bg-white rounded-lg shadow-lg p-3 flex flex-col gap-2 transition-all duration-300 z-50 ${
-              isGenusOpen ? "opacity-100 scale-95 pointer-events-auto" : "opacity-0 scale-95 pointer-events-none"
-            }`}
-          >
-            {genera?.map(genus => (
-              <label key={genus} className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  name="genusOption"
-                  className="form-radio w-5 h-5"
-                  checked={selectedGenus === genus}
-                  onChange={() => handleGenusFilter(genus)}
-                />
-                <span>{genus}</span>
-              </label>
-            ))}
+            {isGenusOpen && (
+              <div className="absolute top-full left-0 mt-2 w-[189px] bg-white rounded-lg shadow-lg p-3 flex flex-col gap-2 z-50">
+                {genera?.map(genus => (
+                  <label key={genus} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="genusOption"
+                      className="form-radio w-5 h-5"
+                      checked={selectedGenus === genus}
+                      onChange={() => handleGenusFilter(genus)}
+                    />
+                    <span>{genus}</span>
+                  </label>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Category Dropdown */}

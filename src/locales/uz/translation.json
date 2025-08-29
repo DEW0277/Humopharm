@@ -124,6 +124,9 @@
   "nav": {
     "about": "Biz haqimizda",
     "products": "Mahsulotlar",
+    "prod": "Mahsulotlar",
+
     "contact": "Bog‘lanish"
-  }
+  },
+  "produc": "Mahsulotlar"
 }
