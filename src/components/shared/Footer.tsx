@@ -26,7 +26,7 @@ function Footer() {
           {navigationLinks.map(i => (
             <li key={i.id}>
               <a href={`#${i.link}`} className="cursor-pointer font-semibold hover:underline">
-                {t(`nav.${i.link}`, i.title)}
+                {t(`navigation.${i.link}`, t(i.title))}
               </a>
             </li>
           ))}
