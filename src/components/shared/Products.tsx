@@ -136,8 +136,7 @@ function Products() {
         <div className="max-md:w-full gap-4 items-center flex relative">
           <button
             id="categoryBtn"
-            className={`flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border ${
-              selectedCategory ? "bg-[#e52629] text-white border-[#e52629]" : "border-[#e52629] bg-white text-[#e52629]"
+            className={`flex items-center justify-center cursor-pointer rounded-[20px] !p-2 md:!p-4 gap-2 border bg-[#e52629] text-white border-[#e52629]"
             }`}
             onClick={handleCategoryToggle}
           >
@@ -249,7 +248,7 @@ function Products() {
                 <div className="prod-about space-y-4">
                   <div className="prod-name space-y-2">
                     <h4>{product.name}</h4>
-                    <p>{product.type}</p>
+                    <p>{product.description}</p>
                     {product.genus && <span className="text-sm text-gray-600">{product.genus}</span>}
                   </div>
                   <div className="prod-btn">
