@@ -248,8 +248,8 @@ function Products() {
                 <div className="prod-about space-y-4">
                   <div className="prod-name space-y-2">
                     <h4>{product.name}</h4>
-                    <p>{product.description}</p>
-                    {product.genus && <span className="text-sm text-gray-600">{product.genus}</span>}
+                    <p>{product.type}</p>
+                    {product.description && <span className="text-sm text-gray-600">{product.description}</span>}
                   </div>
                   <div className="prod-btn">
                     <button onClick={() => handleProductClick(product.id)}>
