@@ -443,7 +443,7 @@ img {
 }
 
 .product-div {
-  @apply flex flex-col items-center justify-between bg-[#f0f0f0] gap-4 rounded-2xl w-full max-w-[300px] mx-auto h-auto;
+  @apply flex flex-col items-center justify-between bg-[#f0f0f0] rounded-2xl w-full max-w-[300px] mx-auto h-auto;
 }
 
 .prod-img {
