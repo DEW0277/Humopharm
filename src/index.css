@@ -447,8 +447,10 @@ img {
 }
 
 .prod-img {
-  @apply w-full aspect-square rounded-t-2xl bg-[#bcd6ea] flex justify-center cursor-pointer overflow-hidden object-cover h-40;
+  @apply w-full aspect-square rounded-t-2xl bg-[#bcd6ea] flex justify-center cursor-pointer overflow-hidden object-cover;
+  height: calc(var(--spacing) * 60);
 }
+
 
 .prod-img img {
   @apply w-full h-auto transition duration-500;
