@@ -44,7 +44,7 @@ const ProductPage = () => {
   const sections = [
     {
       title: t("product.sections.composition"),
-      content: product.description || t("product.sections.compositionDefault"),
+      content: product.genus || t("product.sections.compositionDefault"),
     },
     {
       title: t("product.sections.usage"),
@@ -56,7 +56,7 @@ const ProductPage = () => {
     },
     {
       title: t("product.sections.sideEffects"),
-      content: product.prescription || t("product.sections.sideEffectsDefault"),
+      content: product.manufacturer || t("product.sections.sideEffectsDefault"),
     },
   ];
 
