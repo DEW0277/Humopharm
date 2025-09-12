@@ -77,11 +77,11 @@ const ProductPage = () => {
 
         <div className="flex flex-col">
           <div className="relative bg-gray-100 md:w-[515px] rounded-lg p-6 ">
-            <div className="relative bg-white rounded-lg shadow-md p-2">
+            <div className="relative bg-white rounded-lg shadow-md p-2 h-[400px]">
               <img
                 src={`${import.meta.env.VITE_API_URL || "http://localhost:3000"}${product.images[current]}`}
                 alt={product.name}
-                className="w-full rounded-lg"
+                className="w-full h-full rounded-lg"
               />
               <button
                 onClick={() => setCurrent(prev => (prev === 0 ? product.images.length - 1 : prev - 1))}
