@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || 'https://humopharmgroup.uz/api';
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -57,12 +58,15 @@ export interface ProductFilter {
 }
 
 class ApiService {
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  private async request<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<T> {
     const url = `${API_BASE_URL}${endpoint}`;
 
     const config: RequestInit = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         ...options.headers,
       },
       ...options,
@@ -78,7 +82,7 @@ class ApiService {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("API request failed:", error);
+      console.error('API request failed:', error);
       throw error;
     }
   }
@@ -87,11 +91,11 @@ class ApiService {
   async getProducts(filter: ProductFilter = {}): Promise<ProductsResponse> {
     const params = new URLSearchParams();
 
-    if (filter.genus) params.append("genus", filter.genus);
-    if (filter.category) params.append("category", filter.category);
-    if (filter.search) params.append("search", filter.search);
-    if (filter.page) params.append("page", filter.page.toString());
-    if (filter.limit) params.append("limit", filter.limit.toString());
+    if (filter.genus) params.append('genus', filter.genus);
+    if (filter.category) params.append('category', filter.category);
+    if (filter.search) params.append('search', filter.search);
+    if (filter.page) params.append('page', filter.page.toString());
+    if (filter.limit) params.append('limit', filter.limit.toString());
 
     const endpoint = `/drugs`;
     return this.request<ProductsResponse>(endpoint);
@@ -109,7 +113,9 @@ class ApiService {
 
   // Get all genera
   async getGenera(): Promise<string[]> {
-    const response = await this.request<{ data: string[] }>("/products/genera/all");
+    const response = await this.request<{ data: string[] }>(
+      '/products/genera/all'
+    );
     return response.data;
   }
 
@@ -120,7 +126,9 @@ class ApiService {
   // }
 
   // Search products
-  async searchProducts(query: string): Promise<{ products: Product[]; total: number; query: string }> {
+  async searchProducts(
+    query: string
+  ): Promise<{ products: Product[]; total: number; query: string }> {
     const response = await this.request<{
       data: { products: Product[]; total: number; query: string };
     }>(`/products/search/query?query=${encodeURIComponent(query)}`);
