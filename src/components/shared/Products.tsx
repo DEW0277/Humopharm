@@ -239,7 +239,7 @@ function Products() {
               <div className="product-div" key={product.id}>
                 <div className="prod-img">
                   <img
-                    src={`${import.meta.env.VITE_API_URL || "http://localhost:3000"}${product.images[0]}`}
+                    src={`${import.meta.env.VITE_API_URL || "https:humopharmgroup.uz"}${product.images[0]}`}
                     alt={product.name}
                     className="w-full h-35 object-cover rounded-md"
                   />

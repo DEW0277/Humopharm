@@ -79,7 +79,7 @@ const ProductPage = () => {
           <div className="relative bg-gray-100 md:w-[515px] rounded-lg p-6 ">
             <div className="relative bg-white rounded-lg shadow-md p-2 h-[400px]">
               <img
-                src={`${import.meta.env.VITE_API_URL || "http://localhost:3000"}${product.images[current]}`}
+                src={`${import.meta.env.VITE_API_URL || "https://humopharmgroup.uz"}${product.images[current]}`}
                 alt={product.name}
                 className="w-full h-full rounded-lg"
               />
@@ -108,7 +108,7 @@ const ProductPage = () => {
                   }`}
                 >
                   <img
-                    src={`${import.meta.env.VITE_API_URL || "http://localhost:3000"}${img}`}
+                    src={`${import.meta.env.VITE_API_URL || "https://humopharmgroup.uz"}${img}`}
                     alt={product.name}
                     className="w-full h-full object-cover"
                   />
