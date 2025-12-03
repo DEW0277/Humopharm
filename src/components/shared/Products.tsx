@@ -236,10 +236,10 @@ function Products() {
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredProducts?.map(product => (
-              <div className="product-div" key={product.id}>
+              <div className="product-div p-2" key={product.id}>
                 <div className="prod-img">
                   <img
-                    src={`${import.meta.env.VITE_API_URL || "https:humopharmgroup.uz"}${product.images[0]}`}
+                    src={`${import.meta.env.VITE_API_URL || "https:humopharmgroup.uz/api"}${product.images[0]}`}
                     alt={product.name}
                     className="w-full h-35 object-cover rounded-md"
                   />

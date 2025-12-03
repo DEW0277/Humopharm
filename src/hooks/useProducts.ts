@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 import {
   apiService,
   type Product,
   type ProductDetail,
   type ProductFilter,
   type ProductsResponse,
-} from "../services/api";
+} from '../services/api';
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -32,13 +32,14 @@ export const useProducts = () => {
           limit,
           page,
         });
-        console.log(response);
 
         setProducts(response.products);
         setPagination(response.pagination);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to fetch products");
-        console.error("Error fetching products:", err);
+        setError(
+          err instanceof Error ? err.message : 'Failed to fetch products'
+        );
+        console.error('Error fetching products:', err);
       } finally {
         setLoading(false);
       }
@@ -58,11 +59,13 @@ export const useProducts = () => {
         limit,
       });
 
-      setProducts(prev => [...prev, ...response.products]);
+      setProducts((prev) => [...prev, ...response.products]);
       setPagination(response.pagination);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to load more products");
-      console.error("Error loading more products:", err);
+      setError(
+        err instanceof Error ? err.message : 'Failed to load more products'
+      );
+      console.error('Error loading more products:', err);
     } finally {
       setLoading(false);
     }
@@ -88,8 +91,10 @@ export const useProducts = () => {
           totalPages: 1,
         });
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to search products");
-        console.error("Error searching products:", err);
+        setError(
+          err instanceof Error ? err.message : 'Failed to search products'
+        );
+        console.error('Error searching products:', err);
       } finally {
         setLoading(false);
       }
@@ -148,8 +153,10 @@ export const useProductDetails = (productId: number) => {
       const productDetails = await apiService.getProductDetailsById(productId);
       setProduct(productDetails);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch product details");
-      console.error("Error fetching product details:", err);
+      setError(
+        err instanceof Error ? err.message : 'Failed to fetch product details'
+      );
+      console.error('Error fetching product details:', err);
     } finally {
       setLoading(false);
     }
