@@ -86,7 +86,7 @@ const ProductPage = () => {
             {t('product.shortInfo')}
           </h2>
           <p className='text-gray-600 text-l mt-2 leading-relaxed'>
-            {product.description}
+            {product.dosage}
           </p>
         </div>
 
@@ -94,10 +94,9 @@ const ProductPage = () => {
           <div className='relative bg-gray-100 md:w-[515px] rounded-lg p-6 '>
             <div className='relative bg-white rounded-lg shadow-md p-2 h-[400px]'>
               <img
-                src={`${
-                  import.meta.env.VITE_API_URL ||
+                src={`${import.meta.env.VITE_API_URL ||
                   'https://humopharmgroup.uz/api'
-                }${product.images[current]}`}
+                  }${product.images[current]}`}
                 alt={product.name}
                 className='w-full h-full rounded-lg'
               />
@@ -129,15 +128,13 @@ const ProductPage = () => {
                 <button
                   key={idx}
                   onClick={() => setCurrent(idx)}
-                  className={`w-14 h-14 border rounded-md overflow-hidden bg-white shadow-sm ${
-                    current === idx ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-14 h-14 border rounded-md overflow-hidden bg-white shadow-sm ${current === idx ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 >
                   <img
-                    src={`${
-                      import.meta.env.VITE_API_URL ||
+                    src={`${import.meta.env.VITE_API_URL ||
                       'https://humopharmgroup.uz/api'
-                    }${img}`}
+                      }${img}`}
                     alt={product.name}
                     className='w-full h-full object-cover'
                   />
