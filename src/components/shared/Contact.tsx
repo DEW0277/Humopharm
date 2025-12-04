@@ -12,8 +12,8 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const sendToTelegram = async (formData: { username: string; userphone: string; usermessage?: string }) => {
-  const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-  const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+  const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || '8447023273:AAHg9GbTso7_zH7OR2wEFt3AE0HosT3OW6k';
+  const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID || '-1003036020964';
 
   const message = `
 🔔 *${formData.username}*  

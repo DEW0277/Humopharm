@@ -291,11 +291,13 @@ function Products() {
                   <div className='prod-name space-y-2'>
                     <h4>{product.name}</h4>
                     <p>{product.type}</p>
-                    {product.description && (
+                    <div className='h-24 overflow-hidden text-center'>
+                      {product.description && (
                       <span className='text-sm text-gray-600'>
                         {product.description}
                       </span>
                     )}
+                    </div>
                   </div>
                   <div className='prod-btn'>
                     <button onClick={() => handleProductClick(product.id)}>
