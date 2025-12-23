@@ -29,6 +29,7 @@ export interface Product {
   des: string;
   genus?: string;
   category?: string;
+  manufacturer?: string;
 }
 
 export interface ProductDetail {
@@ -97,7 +98,7 @@ class ApiService {
     if (filter.page) params.append('page', filter.page.toString());
     if (filter.limit) params.append('limit', filter.limit.toString());
 
-    const endpoint = `/drugs`;
+    const endpoint = `/drugs?${params.toString()}`;
     return this.request<ProductsResponse>(endpoint);
   }
 

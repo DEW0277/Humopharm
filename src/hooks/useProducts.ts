@@ -8,7 +8,8 @@ import {
 } from '../services/api';
 
 export const useProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]); // Displayed products (filtered & paginated)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState({
@@ -18,107 +19,129 @@ export const useProducts = () => {
     totalPages: 1,
   });
 
-  const fetchProducts = useCallback(
-    async (filter: ProductFilter = {}) => {
-      try {
-        setLoading(true);
-        setError(null);
+  const [currentFilter, setCurrentFilter] = useState<ProductFilter>({});
 
-        const limit = filter.limit ?? pagination?.limit ?? 8;
-        const page = filter.page ?? pagination?.page ?? 1;
-
-        const response: ProductsResponse = await apiService.getProducts({
-          ...filter,
-          limit,
-          page,
-        });
-
-        setProducts(response.products);
-        setPagination(response.pagination);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : 'Failed to fetch products'
-        );
-        console.error('Error fetching products:', err);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [pagination]
-  );
-
-  const loadMoreProducts = useCallback(async () => {
+  // 1. Fetch ALL products on mount
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
-
-      const nextPage = (pagination?.page ?? 1) + 1;
-      const limit = pagination?.limit ?? 8;
-
+      setError(null);
+      // Fetch effectively "all" by setting a large limit.
+      // Adjust limit if dataset grows significantly.
       const response: ProductsResponse = await apiService.getProducts({
-        page: nextPage,
-        limit,
+        limit: 1000, 
+        page: 1,
       });
 
-      setProducts((prev) => [...prev, ...response.products]);
-      setPagination(response.pagination);
+      setAllProducts(response.products);
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : 'Failed to load more products'
+        err instanceof Error ? err.message : 'Failed to fetch products'
       );
-      console.error('Error loading more products:', err);
+      console.error('Error fetching products:', err);
     } finally {
       setLoading(false);
     }
-  }, [pagination]);
+  }, []);
 
-  const searchProducts = useCallback(
-    async (query: string) => {
-      if (!query.trim()) {
-        await fetchProducts();
-        return;
-      }
+  // 2. filtering & Pagination Effect
+  useEffect(() => {
+    let result = [...allProducts];
 
-      try {
-        setLoading(true);
-        setError(null);
+    // Filter: Search
+    if (currentFilter.search) {
+      const query = currentFilter.search.toLowerCase();
+      result = result.filter((p) =>
+        [p.name, p.type, p.genus, p.description]
+          .filter(Boolean)
+          .some((field) => field?.toLowerCase().includes(query))
+      );
+    }
 
-        const response = await apiService.searchProducts(query);
-        setProducts(response.products);
-        setPagination({
-          total: response.total,
-          page: 1,
-          limit: response.total,
-          totalPages: 1,
-        });
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : 'Failed to search products'
-        );
-        console.error('Error searching products:', err);
-      } finally {
-        setLoading(false);
-      }
+    // Filter: Genus
+    if (currentFilter.genus) {
+      const query = currentFilter.genus.toLowerCase();
+      result = result.filter((p) => {
+         // Loose match for genus to handle data inconsistencies
+         return p.genus?.toLowerCase().includes(query) || 
+                p.manufacturer?.toLowerCase().includes(query);
+      });
+    }
+
+    // Filter: Category
+    if (currentFilter.category) {
+       const query = currentFilter.category.toLowerCase();
+       /* 
+          Mapping: "sirop" -> "Siroplar" logic or simply contains.
+          Data has "Siroplar", "Kapsulalar" etc.
+       */
+       result = result.filter(p => p.type?.toLowerCase().includes(query));
+    }
+
+    const total = result.length;
+    const limit = currentFilter.limit || 8;
+    const page = currentFilter.page || 1;
+    const totalPages = Math.ceil(total / limit);
+
+    // Update Pagination State
+    setPagination({
+      total,
+      page,
+      limit,
+      totalPages,
+    });
+
+    // Slice for Pagination
+    const startIndex = (page - 1) * limit;
+    const sliced = result.slice(startIndex, startIndex + limit);
+
+    setProducts(sliced);
+
+  }, [allProducts, currentFilter]);
+
+
+  const updateFilter = useCallback(
+    async (newFilterPartial: ProductFilter) => {
+      // Just update state, effect will handle logic
+      setCurrentFilter(prev => {
+         const merged = { ...prev, ...newFilterPartial };
+         // Reset to page 1 if filtering criteria (not page) changes
+         if (newFilterPartial.search !== undefined || newFilterPartial.genus !== undefined || newFilterPartial.category !== undefined) {
+             merged.page = 1;
+         }
+         
+         // Clean undefined
+         (Object.keys(merged) as (keyof ProductFilter)[]).forEach(key => {
+            if (merged[key] === undefined) delete merged[key];
+         });
+         
+         return merged;
+      });
     },
-    [fetchProducts]
+    []
   );
 
-  const filterByGenus = useCallback(
-    async (genus: string) => {
-      await fetchProducts({ genus, page: 1 });
-    },
-    [fetchProducts]
-  );
+  const loadMoreProducts = useCallback(async () => {
+    setCurrentFilter(prev => ({
+        ...prev,
+        limit: (prev.limit || 8) + 8 // Simply show more on current page view logic, or standard pagination?
+        // Standard "Load More" usually implies appending.
+        // But with our slice logic, increasing limit works to show "more".
+        // Or if we want standard pages:
+        // page: (prev.page || 1) + 1 
+        // But the UI seems to expect "appending"?
+        // The original loadMoreProducts implementation APPENDED results to state.
+        
+        // Let's stick to "Showing First N items" approach for infinite scroll feel if that's what `limit` increase does.
+        // OR better: keep page 1, increase limit.
+    }));
+  }, []);
 
-  const filterByCategory = useCallback(
-    async (category: string) => {
-      await fetchProducts({ category, page: 1 });
-    },
-    [fetchProducts]
-  );
-
-  const clearFilters = useCallback(async () => {
-    await fetchProducts({ page: 1 });
-  }, [fetchProducts]);
+  // Helpers mapping to updateFilter for backward compatibility/ease
+  const searchProducts = useCallback((query: string) => updateFilter({ search: query }), [updateFilter]);
+  
+  // Note: These are now effectively "select filter"
+  const clearFilters = useCallback(() => setCurrentFilter({}), []);
 
   useEffect(() => {
     fetchProducts();
@@ -132,9 +155,9 @@ export const useProducts = () => {
     fetchProducts,
     loadMoreProducts,
     searchProducts,
-    filterByGenus,
-    filterByCategory,
+    updateFilter,
     clearFilters,
+    currentFilter,
   };
 };
 

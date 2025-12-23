@@ -21,9 +21,11 @@ function Products() {
   const [selectedGenus, setSelectedGenus] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
   const [genera] = useState<string[]>([
-    'humo pharm',
-    'genius pharm',
-    'infinity pharm',
+    'Humo pharm',
+    'Genius pharm',
+    'Infinity pharm',
+    'Union Pharm'
+
   ]);
   const [categories] = useState<string[]>([
     'sirop',
@@ -38,12 +40,30 @@ function Products() {
     error,
     pagination,
     loadMoreProducts,
-    filterByGenus,
-    filterByCategory,
     clearFilters,
+    currentFilter,
+    updateFilter,
+    searchProducts,
   } = useProducts();
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+
+  // We can use currentFilter from hook to sync UI, but local state feels responsive for inputs.
+  // However, removing filteredProducts state as we now filter on server.
+  // We should sync local UI state with currentFilter on mount/update if needed, 
+  // or just use currentFilter directly for UI highlighting if we want single source of truth.
+  // For search input, local state is needed for typing.
+  
+  useEffect(() => {
+      // Sync local state with hook state
+      setSelectedGenus(currentFilter.genus || '');
+      setSelectedCategory(currentFilter.category || '');
+      // Only sync search query if it's different to avoid cursor jumping if we were typing, 
+      // but here currentFilter usually updates AFTER fetch. 
+      // Safe to sync if we trust hook source of truth.
+      setSearchQuery(currentFilter.search || '');
+  }, [currentFilter]);
+
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null); // <== добавляем ref
 
@@ -63,9 +83,6 @@ function Products() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  useEffect(() => {
-    setFilteredProducts(products);
-  }, [products]);
 
   const handleProductClick = (productId: number) => {
     navigate(`/product/${productId}`);
@@ -73,38 +90,31 @@ function Products() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!searchQuery.trim()) {
-      setFilteredProducts(products);
-    } else {
-      const query = searchQuery.toLowerCase();
-      const filtered = products.filter((product) =>
-        [product.name, product.type, product.genus, product.description]
-          .filter(Boolean)
-          .some((field) => field?.toLowerCase().includes(query))
-      );
-      setFilteredProducts(filtered);
-    }
+    // Server side search
+    searchProducts(searchQuery);
   };
 
   const handleGenusFilter = async (genus: string) => {
-    setSelectedGenus(genus);
     setIsGenusOpen(false);
     if (genus === selectedGenus) {
       setSelectedGenus('');
-      await clearFilters();
+      // Update filter with undefined to remove it, keeping others
+      await updateFilter({ genus: undefined }); 
     } else {
-      await filterByGenus(genus);
+      setSelectedGenus(genus);
+      // Update filter, merging with others
+      await updateFilter({ genus });
     }
   };
 
   const handleCategoryFilter = async (category: string) => {
-    setSelectedCategory(category);
     setIsCategoryOpen(false);
     if (category === selectedCategory) {
       setSelectedCategory('');
-      await clearFilters();
+      await updateFilter({ category: undefined });
     } else {
-      await filterByCategory(category);
+      setSelectedCategory(category);
+      await updateFilter({ category });
     }
   };
 
@@ -274,7 +284,7 @@ function Products() {
       ) : (
         <>
           <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
-            {filteredProducts?.map((product) => (
+            {products?.map((product) => (
               <div className='product-div p-2' key={product.id}>
                 <div className='prod-img'>
                   <img
